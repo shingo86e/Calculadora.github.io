@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora HTML</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: gold;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos para los botones de la calculadora */
+        input[type="button"] {
+            width: 60px;  /* Ancho de los botones */
+            height: 60px; /* Alto de los botones */
+            font-size: 24px; /* Tamaño del texto en los botones */
+            margin: 5px; /* Espacio alrededor de los botones */
+            background-color: #333; /* Color de fondo de los botones */
+            color: gold; /* Color del texto */
+            border: 1px solid gold; /* Borde del botón */
+            border-radius: 10px; /* Bordes redondeados */
+        }
+
+        /* Estilo del botón de reset */
+        input[type="reset"], input[type="text"] {
+            font-size: 20px;
+        }
+
+        /* Estilos para el campo de entrada */
+        input[name="ans"] {
+            width: 270px;
+            height: 40px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        // Función para manejar el input desde el teclado
+        function handleKeyPress(event) {
+            const key = event.key;
+            const calculatorInput = document.calculator.ans;
+
+            // Si es un número o un operador, se añade al campo de texto
+            if (!isNaN(key) || ['+', '-', '*', '/'].includes(key)) {
+                calculatorInput.value += key;
+            } else if (key === 'Enter') {
+                // Si se presiona Enter, se realiza el cálculo
+                calculate();
+            } else if (key === 'Backspace') {
+                // Si se presiona Backspace, se elimina el último carácter
+                calculatorInput.value = calculatorInput.value.slice(0, -1);
+            }
+        }
+
+        // Función para evaluar la expresión matemática
+        function calculate() {
+            const calculatorInput = document.calculator.ans;
+            try {
+                calculatorInput.value = eval(calculatorInput.value);
+            } catch (e) {
+                calculatorInput.value = "Error";
+            }
+        }
+
+        // Agregar el evento para escuchar las teclas presionadas
+        document.addEventListener('keydown', handleKeyPress);
+    </script>
+</head>
+<body>
+    <form name="calculator">
+        <input type="button" value="1" onClick="document.calculator.ans.value+='1'">
+        <input type="button" value="2" onClick="document.calculator.ans.value+='2'">
+        <input type="button" value="3" onClick="document.calculator.ans.value+='3'">
+        <input type="button" value="4" onClick="document.calculator.ans.value+='4'">
+        <input type="button" value="5" onClick="document.calculator.ans.value+='5'">
+        <input type="button" value="6" onClick="document.calculator.ans.value+='6'">
+        <input type="button" value="7" onClick="document.calculator.ans.value+='7'">
+        <input type="button" value="8" onClick="document.calculator.ans.value+='8'">
+        <input type="button" value="9" onClick="document.calculator.ans.value+='9'">
+        <input type="button" value="0" onClick="document.calculator.ans.value+='0'">
+        <input type="button" value="+" onClick="document.calculator.ans.value+='+'">
+        <input type="button" value="-" onClick="document.calculator.ans.value+='-'">
+        <input type="button" value="*" onClick="document.calculator.ans.value+='*'">
+        <input type="button" value="/" onClick="document.calculator.ans.value+='/'">
+        <input type="reset" value="Reset">
+        <input type="button" value="=" onClick="calculate()">
+        <br>El resultado es: <input type="text" name="ans" value="">
+    </form>
+</body>
+</html>
